@@ -31,3 +31,4 @@ Makefile.in
 /src/Algorithms/ControlProcess/ControlProcess_SK.h
 /src/Algorithms/ControlProcess/controlprocess
 /src/GUI/test
+/Build
