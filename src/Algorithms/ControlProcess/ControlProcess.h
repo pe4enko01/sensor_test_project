@@ -47,15 +47,15 @@ class ControlProcess:
 		enum Timers 	//! Перечисление идентификаторов используемых таймеров
 		{
 			//! В данном случае таймер только один - для задержки перед повторным вызовом метода sensorInfo
-			tmSensorInfo,
+			tmSensorInfo = 2,
 		};
 
 	protected:
 		//! Задержка перед повторным вызовом метода sensorInfo
-		int delay_sensorInfo;
+		int CheckWatherLevelTimer;
 
 		//! Инкремент для изменения аналогового датчика по таймеру
-		int inc_sensor_ai;
+		int IncrementWatherLevel;
 
 		/*! Конструктор класса по умолчанию.\n
 		Доступен только для производных классов. */

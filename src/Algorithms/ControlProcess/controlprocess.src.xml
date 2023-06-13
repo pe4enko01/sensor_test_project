@@ -16,12 +16,13 @@
         <set name="sleep-msec" val="150"/>
     </settings>
     <smap> 
-        <item name="Sensor_AI" vartype="in" iotype="AI" comment="Аналоговый датчик"/>
-        <item name="Threshold_High" vartype="out" iotype="DI" comment="Порог на максимальное значение"/>
-        <item name="Threshold_Low" vartype="out" iotype="DI" comment="Порог на минимальное значение"/>
+         
+        <item name="WatherLevel" vartype="in" iotype="AI" comment="Уровень воды"/>
+        <item name="HightLevel" vartype="out" iotype="DI" comment="Значение высокого уровня при котором количество воды уменьшается"/>
+        <item name="LowLevel" vartype="out" iotype="DI" comment="Значение низкого уровня при котором количество воды увеличивается"/>
 
-        <item name="Start_Timer" vartype="in" iotype="DI" comment="Запуск таймера по которому изменяется значение аналогового датчика"/>
-        <item name="Sensor_AI_Out" vartype="out" iotype="AI" comment="Аналоговый датчик"/>
+        <item name="ComandToChangeLevel" vartype="in" iotype="DI" comment="Команда на изменение уровня воды"/>
+        <item name="WatherLevelDublicat" vartype="out" iotype="AI" comment="Уровень воды, повторное значение на выход"/>
     </smap>
     <msgmap></msgmap>	
 </ControlProcess>

@@ -41,11 +41,12 @@
         <ControlProcess name="ControlProcess"
                       overrun_delay_msec="15"
                       Sensor_AI="Test_AI"
-                     Threshold_High="ThreshHi"
-                     Threshold_Low="ThreshLo"
+                     Threshold_High="Threshold_max_value"
+                     Threshold_Low="Threshold_min_value"
 
                      Sensor_AI_Out="Test_AI"
                      Start_Timer="Start_Timer_DI"
+                     
         />
     </settings>
     
@@ -59,16 +60,15 @@
         <sensors name="Sensors" section="Sensors" >
             <item id="101" name="Test_DI" iotype="DI" default="0" textname="Test DI"/>
             
-            <item id="102" name="ThreshHi" iotype="DI" textname="Threshold high"/>
+            <item id="102" name="Threshold_max_value" iotype="DI" textname="Значение максимального уровня"/>
             
-            <item id="103" name="ThreshLo" iotype="DI" textname="Threshold low"/>
+            <item id="103" name="Threshold_min_value" iotype="DI" textname="Значение максимального уровня"/>
             
             <item id="104" name="Test_AI" iotype="AI" textname="Test AI"/>
             
             <item id="107" name="Start_Timer_DI" iotype="DI" default="0" textname="Start Timer"/>
             
-            <item id="105" name="TSCPU_Confirm_S"
-                      iotype="DI" textname="Квитирование ЦПУ" node="LocalHostNode"/>
+            <item id="105" name="TSCPU_Confirm_S" iotype="DI" textname="Квитирование ЦПУ" node="LocalHostNode"/>
                 
                 <item id="106" name="pulsar" textname="xxpulsar" iotype="DI"/>
             </sensors>
