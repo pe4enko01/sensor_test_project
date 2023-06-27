@@ -48,14 +48,16 @@ class ControlProcess:
 		{
 			//! В данном случае таймер только один - для задержки перед повторным вызовом метода sensorInfo
 			tmSensorInfo = 2,
+			tmIncLevel, 
+			tmDecLevel
 		};
 
 	protected:
 		//! Задержка перед повторным вызовом метода sensorInfo
-		int CheckWatherLevelTimer;
+		int StartTimerDelay;
 
 		//! Инкремент для изменения аналогового датчика по таймеру
-		int IncrementWatherLevel;
+		int IncrementWaterLevel;
 
 		/*! Конструктор класса по умолчанию.\n
 		Доступен только для производных классов. */
@@ -63,7 +65,7 @@ class ControlProcess:
 
 		/*! Выполнение очередного шага программы.\n
 		Этот метод переопределяет чисто виртуальный метод  абстрактного класса ControlProcess_SK. */
-		virtual void step(){};
+		virtual void step();
 
 		//! Метод, реализующий логику изменения аналогового датчика и выставления пороговых датчиков
 		void sensorInfo( const uniset::SensorMessage *sm ) override;
@@ -71,6 +73,7 @@ class ControlProcess:
 		//! Метод, реализующий обработку событий по таймеру
 		void timerInfo( const uniset::TimerMessage* tm ) override;
 	private:
+		bool flagStartProcess = {false};
 
 };
 // ------------------------------------------------------------------------------------------

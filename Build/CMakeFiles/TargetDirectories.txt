@@ -1,0 +1,15 @@
+/home/ivan/projects/test_projects/sensor_test_project/Build/CMakeFiles/edit_cache.dir
+/home/ivan/projects/test_projects/sensor_test_project/Build/CMakeFiles/rebuild_cache.dir
+/home/ivan/projects/test_projects/sensor_test_project/Build/docs/CMakeFiles/edit_cache.dir
+/home/ivan/projects/test_projects/sensor_test_project/Build/docs/CMakeFiles/rebuild_cache.dir
+/home/ivan/projects/test_projects/sensor_test_project/Build/src/CMakeFiles/scripts.dir
+/home/ivan/projects/test_projects/sensor_test_project/Build/src/CMakeFiles/edit_cache.dir
+/home/ivan/projects/test_projects/sensor_test_project/Build/src/CMakeFiles/rebuild_cache.dir
+/home/ivan/projects/test_projects/sensor_test_project/Build/src/Algorithms/CMakeFiles/edit_cache.dir
+/home/ivan/projects/test_projects/sensor_test_project/Build/src/Algorithms/CMakeFiles/rebuild_cache.dir
+/home/ivan/projects/test_projects/sensor_test_project/Build/src/Algorithms/ControlProcess/CMakeFiles/controlprocess.dir
+/home/ivan/projects/test_projects/sensor_test_project/Build/src/Algorithms/ControlProcess/CMakeFiles/edit_cache.dir
+/home/ivan/projects/test_projects/sensor_test_project/Build/src/Algorithms/ControlProcess/CMakeFiles/rebuild_cache.dir
+/home/ivan/projects/test_projects/sensor_test_project/Build/src/Algorithms/ImitatorTank/CMakeFiles/imitatortank.dir
+/home/ivan/projects/test_projects/sensor_test_project/Build/src/Algorithms/ImitatorTank/CMakeFiles/edit_cache.dir
+/home/ivan/projects/test_projects/sensor_test_project/Build/src/Algorithms/ImitatorTank/CMakeFiles/rebuild_cache.dir

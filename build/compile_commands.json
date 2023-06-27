@@ -1,0 +1,32 @@
+[
+{
+  "directory": "/home/ivan/projects/test_projects/sensor_test_project/build/src/Algorithms/ControlProcess",
+  "command": "/usr/bin/g++  -I/usr/include/uniset2 -I/usr/include/libxml2 -I/usr/include/sigc++-2.0 -I/usr/lib64/sigc++-2.0/include -I/usr/include/uniset2/extensions  -fprofile-arcs -ftest-coverage -fPIC -std=c++11 -g -o CMakeFiles/controlprocess.dir/ControlProcess_SK.cc.o -c /home/ivan/projects/test_projects/sensor_test_project/src/Algorithms/ControlProcess/ControlProcess_SK.cc",
+  "file": "/home/ivan/projects/test_projects/sensor_test_project/src/Algorithms/ControlProcess/ControlProcess_SK.cc"
+},
+{
+  "directory": "/home/ivan/projects/test_projects/sensor_test_project/build/src/Algorithms/ControlProcess",
+  "command": "/usr/bin/g++  -I/usr/include/uniset2 -I/usr/include/libxml2 -I/usr/include/sigc++-2.0 -I/usr/lib64/sigc++-2.0/include -I/usr/include/uniset2/extensions  -fprofile-arcs -ftest-coverage -fPIC -std=c++11 -g -o CMakeFiles/controlprocess.dir/ControlProcess.cc.o -c /home/ivan/projects/test_projects/sensor_test_project/src/Algorithms/ControlProcess/ControlProcess.cc",
+  "file": "/home/ivan/projects/test_projects/sensor_test_project/src/Algorithms/ControlProcess/ControlProcess.cc"
+},
+{
+  "directory": "/home/ivan/projects/test_projects/sensor_test_project/build/src/Algorithms/ControlProcess",
+  "command": "/usr/bin/g++  -I/usr/include/uniset2 -I/usr/include/libxml2 -I/usr/include/sigc++-2.0 -I/usr/lib64/sigc++-2.0/include -I/usr/include/uniset2/extensions  -fprofile-arcs -ftest-coverage -fPIC -std=c++11 -g -o CMakeFiles/controlprocess.dir/controlprocess.cc.o -c /home/ivan/projects/test_projects/sensor_test_project/src/Algorithms/ControlProcess/controlprocess.cc",
+  "file": "/home/ivan/projects/test_projects/sensor_test_project/src/Algorithms/ControlProcess/controlprocess.cc"
+},
+{
+  "directory": "/home/ivan/projects/test_projects/sensor_test_project/build/src/Algorithms/ImitatorTank",
+  "command": "/usr/bin/g++  -I/usr/include/uniset2 -I/usr/include/libxml2 -I/usr/include/sigc++-2.0 -I/usr/lib64/sigc++-2.0/include -I/usr/include/uniset2/extensions  -fprofile-arcs -ftest-coverage -fPIC -std=c++11 -g -o CMakeFiles/imitatortank.dir/ImitatorTank_SK.cc.o -c /home/ivan/projects/test_projects/sensor_test_project/src/Algorithms/ImitatorTank/ImitatorTank_SK.cc",
+  "file": "/home/ivan/projects/test_projects/sensor_test_project/src/Algorithms/ImitatorTank/ImitatorTank_SK.cc"
+},
+{
+  "directory": "/home/ivan/projects/test_projects/sensor_test_project/build/src/Algorithms/ImitatorTank",
+  "command": "/usr/bin/g++  -I/usr/include/uniset2 -I/usr/include/libxml2 -I/usr/include/sigc++-2.0 -I/usr/lib64/sigc++-2.0/include -I/usr/include/uniset2/extensions  -fprofile-arcs -ftest-coverage -fPIC -std=c++11 -g -o CMakeFiles/imitatortank.dir/ImitatorTank.cc.o -c /home/ivan/projects/test_projects/sensor_test_project/src/Algorithms/ImitatorTank/ImitatorTank.cc",
+  "file": "/home/ivan/projects/test_projects/sensor_test_project/src/Algorithms/ImitatorTank/ImitatorTank.cc"
+},
+{
+  "directory": "/home/ivan/projects/test_projects/sensor_test_project/build/src/Algorithms/ImitatorTank",
+  "command": "/usr/bin/g++  -I/usr/include/uniset2 -I/usr/include/libxml2 -I/usr/include/sigc++-2.0 -I/usr/lib64/sigc++-2.0/include -I/usr/include/uniset2/extensions  -fprofile-arcs -ftest-coverage -fPIC -std=c++11 -g -o CMakeFiles/imitatortank.dir/imitatortank.cc.o -c /home/ivan/projects/test_projects/sensor_test_project/src/Algorithms/ImitatorTank/imitatortank.cc",
+  "file": "/home/ivan/projects/test_projects/sensor_test_project/src/Algorithms/ImitatorTank/imitatortank.cc"
+}
+]

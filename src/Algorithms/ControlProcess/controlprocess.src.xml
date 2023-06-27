@@ -14,17 +14,34 @@
         <set name="class-name" val="ControlProcess"/>
         <set name="msg-count" val="30"/>
         <set name="sleep-msec" val="150"/>
-    </settings>
-    <smap> 
-         
-        <item name="WatherLevel" vartype="in" iotype="AI" comment="Уровень воды"/>
-        <item name="HightLevel" vartype="out" iotype="DI" comment="Значение высокого уровня при котором количество воды уменьшается"/>
-        <item name="LowLevel" vartype="out" iotype="DI" comment="Значение низкого уровня при котором количество воды увеличивается"/>
 
-        <item name="ComandToChangeLevel" vartype="in" iotype="DI" comment="Команда на изменение уровня воды"/>
-        <item name="WatherLevelDublicat" vartype="out" iotype="AI" comment="Уровень воды, повторное значение на выход"/>
+    </settings>
+        <variables>
+
+            <item name = "LevelIsHighThreshold" default="900" type="long" public="1" comment="уставка для формирования сигнала - предупреждение: высокий уровень в баке"/>
+            <item name = "LevelIsCritHighThreshold" default="950" type="long" public="1" comment="уставка для формирования сигнала предупреждение: аварийно высокий уровень в баке"/> 
+            <item name = "LevelIsLowThreshold" default="100" type="long" public="1" comment="ставка для формирования сигнала предупреждение: низкий уровень в баке"/> 
+            <item name = "LevelIsCritLosThreshold" default="10" type="long" public="1" comment="уставка для формирования сигнала предупреждение: высокий уровень в баке"/> 
+            <item name = "FullLevelThreshold" default="990" type="long" public="1" comment="уставка для останова процесса напонения"/> 
+            <item name = "EmptyLevelThreshold" default="10" type="long" public="1" comment="уставка для формирования сигнала - предупреждение: высокий уровень в баке"/> 
+            
+
+         </variables> 
+    <smap> 
+        
+        <item name="StartProcess" vartype="in" iotype="DI" comment="запустить процесс (команда от оператора)"/>
+        <item name="WaterLevel" vartype="in" iotype="AI" comment="уровень жидкости в баке"/>
+        
+        <item name="SwitchOnIncLevelPump" vartype="out" iotype="DO" comment="включить насос подающий жидкость в бак "/>
+        <item name="SwitchOffIncLevelPump " vartype="out" iotype="DO" comment="отключить насос подающий жидкость в бак"/>
+        <item name="SwitchOnDecLevelPump" vartype="out" iotype="DO" comment="включить насос откачивающий жидкость из бака "/>
+        <item name="SwitchOffDecLevelPump" vartype="out" iotype="DO" comment="отключить насос откачивающий жидкоть из бака"/>
+        <item name="LevelIsHigh" vartype="out" iotype="DO" comment="предупреждение: высокий уровень в баке"/>
+        <item name="LevelIsCritHigh " vartype="out" iotype="DO" comment="предупреждение: аварийно высокий уровень в баке"/>
+        <item name="LevelIsLow" vartype="out" iotype="DO" comment="предупреждение: низкий уровень в баке"/>
+        <item name="LevelIsCritLow" vartype="out" iotype="DO" comment="предупреждение: аварийно низкий уровень в баке"/>
+
     </smap>
     <msgmap></msgmap>	
 </ControlProcess>
-
 

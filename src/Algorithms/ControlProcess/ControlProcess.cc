@@ -1,23 +1,21 @@
 #include "ControlProcess.h"
+#include "settings.h"
 // ------------------------------------------------------------------------------------------
 using namespace std;
 using namespace uniset;
 // ------------------------------------------------------------------------------------------
 
+ControlProcess::ControlProcess(uniset::ObjectId id, xmlNode *cnode) : ControlProcess_SK(id, cnode),
+																	  StartTimerDelay(uniset_conf()->getIntProp(cnode, "overrun_delay_msec"))
+{
+	
+	IncrementWaterLevel = 2;
 
+	if (cnode == NULL)
+		throw Exception(myname + ": FAILED! not found confnode in confile!");
 
-ControlProcess::ControlProcess(uniset::ObjectId id, xmlNode* cnode):
-	ControlProcess_SK(id, cnode),
-	CheckWatherLevelTimer(uniset_conf()->getIntProp(cnode, "overrun_delay_msec"))
-{	
-	cout << "ControlProcess" << endl; 
-	IncrementWatherLevel = 2; 
-
-	if( cnode == NULL ) 
-		throw Exception( myname + ": FAILED! not found confnode in confile!" );
-
-	if( CheckWatherLevelTimer < 0 )
-	    CheckWatherLevelTimer = 0;
+	if (StartTimerDelay < 0)
+		StartTimerDelay = 0;
 }
 // ------------------------------------------------------------------------------------------
 ControlProcess::~ControlProcess()
@@ -26,46 +24,77 @@ ControlProcess::~ControlProcess()
 // ------------------------------------------------------------------------------------------
 ControlProcess::ControlProcess()
 {
-	cout << myname << ": init failed!!!!!!!!!!!!!!!"<< endl;
+	mycrit << myname << ": init failed!!!!!!!!!!!!!!!" << endl;
 	throw Exception();
 }
 // ------------------------------------------------------------------------------------------
-void ControlProcess::sensorInfo( const SensorMessage *sm )   
+void ControlProcess::sensorInfo(const SensorMessage *sm)
 {
-	std::cout << "sensorInfo function " << sm->id << endl; 
-	if (sm->id == Start_Timer)   
-	{
-		if (in_Start_Timer){   
-			askTimer(tmSensorInfo, CheckWatherLevelTimer, -1);   
-		}
-		else
-			askTimer(tmSensorInfo, 0, -1);
-	}
 
-	if (sm->id == Sensor_AI)    // Sensor_AI
+	// ЗАПУСК ПРОЦЕССА
+	if(sm->id == StartProcess)
 	{
-		out_Threshold_High = (in_Sensor_AI > 90);  
-		cout << out_Threshold_High << endl; 
-		out_Threshold_Low = (in_Sensor_AI < 10);
+		
+ 		myinfo<< "Start  ControlProcess"<< endl;
+		if (in_StartProcess){
+			
+			myinfo << "Process is running" << endl;
+			flagStartProcess = true;
+		}
+		else{
+			cout << "Process stopped" << endl;
+			flagStartProcess = false;
+		}
+	}
+	else{
+		
+	}
+	// ЗАПУСК WaterLevel
+	if (flagStartProcess){
+		if (sm->id == WaterLevel){
+			myinfo<<"Water level is " << in_WaterLevel <<endl;	
+		}
+		else{
+			
+		}
+	}
+	else{
+
 	}
 }
 // ------------------------------------------------------------------------------------------
-void ControlProcess::timerInfo( const TimerMessage *tm )
-{
-	if( tm->id == tmSensorInfo )
-	{
-		out_Sensor_AI_Out += IncrementWatherLevel;
-		std::cout << out_Sensor_AI_Out << endl; 
-		if (out_Sensor_AI_Out > 100)
-		{
-			out_Sensor_AI_Out = 100;
-			IncrementWatherLevel = -2;
-		}
-		else if (out_Sensor_AI_Out < 0)
-		{
-			out_Sensor_AI_Out = 0;
-			IncrementWatherLevel = 2;
-		}
+void ControlProcess::step(){
+
+	// Установка флагов
+	out_LevelIsHigh = (in_WaterLevel > LevelIsHighThreshold); 
+	//cout<< in_WaterLevel << "  " << LevelIsHighThreshold << endl;
+	out_LevelIsCritHigh = (in_WaterLevel > LevelIsCritLosThreshold);   
+	out_LevelIsLow = (in_WaterLevel < LevelIsLowThreshold);    
+	out_LevelIsCritLow = (in_WaterLevel < LevelIsCritLosThreshold);  
+
+	if(flagStartProcess){
+		if(in_WaterLevel > FullLevelThreshold){
+			out_SwitchOnIncLevelPump = false;
+			out_SwitchOffIncLevelPump = true;
+			out_SwitchOffDecLevelPump = false;
+			out_SwitchOnDecLevelPump = true;
+			//Создать еще датчик для сигнала 
+		}else if(in_WaterLevel < EmptyLevelThreshold){
+			out_SwitchOnDecLevelPump = false;
+			out_SwitchOffDecLevelPump = true;
+			out_SwitchOffIncLevelPump = false;
+			out_SwitchOnIncLevelPump = true;
+		}		
+	}else{
+			out_SwitchOnDecLevelPump = false;
+			out_SwitchOffDecLevelPump = true;
+			out_SwitchOnIncLevelPump = false;
+			out_SwitchOffIncLevelPump = true;
 	}
+}
+// ------------------------------------------------------------------------------------------
+void ControlProcess::timerInfo(const TimerMessage *tm)
+{
+	
 }
 // ------------------------------------------------------------------------------------------
