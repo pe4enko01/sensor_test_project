@@ -13,16 +13,15 @@
     <settings>
         <set name="class-name" val="ImitatorTank"/>
         <set name="msg-count" val="30"/>
-        <set name="sleep-msec" val="1000"/>
+        <set name="sleep-msec" val="150"/>
 
     </settings>
         <variables>
-            <item name = "TankSize"  val ="1000" type="long" public="1" comment="Размер бака (в литрах)"/> 
-            <item name = "LevelIncSpeed"  val ="10" type="long" public="1" comment="Скорость заполнения (в литрах/секунду), по умолчанию - 10 л/секунду"/> 
-            <item name = "LevelDecSpeed"  val ="10" type="long" public="1" comment="Скорость опустошения (в литрах/секунду), по умолчанию - 10 л/секунду"/> 
+            <item name = "TankSize"  default ="1000" type="long" public="1" comment="Размер бака (в литрах)"/> 
+            <item name = "LevelIncSpeed"  default ="10" type="long" public="1" comment="Скорость заполнения (в литрах/секунду), по умолчанию - 10 л/секунду"/> 
+            <item name = "LevelDecSpeed"  default ="10" type="long" public="1" comment="Скорость опустошения (в литрах/секунду), по умолчанию - 10 л/секунду"/> 
          </variables> 
     <smap> 
-        
         <item name="SwitchOnIncLevelPump" vartype="in" iotype="DI" comment="Включить насос подающий жидкость в бак"/>
         <item name="SwitchOffIncLevelPump" vartype="in" iotype="DI" comment="отключить насос подающий жидкость в бак"/> 
         <item name="SwitchOnDecLevelPump" vartype="in" iotype="DI" comment="включить насос откачивающий жидкость из бака"/> 

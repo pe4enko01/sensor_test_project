@@ -6,24 +6,28 @@ using namespace std;
 using namespace uniset;
 // ------------------------------------------------------------------------------------------
 
-
-bool flag;
-bool is_SwitchOnIncLevelPump = false;
-bool is_SwitchOffIncLevelPump  = false;
-bool is_SwitchOffDecLevelPump = false;
-bool is_SwitchOnDecLevelPump = false;
-int initWaterLevel = 0;
-
-
 ImitatorTank::ImitatorTank(uniset::ObjectId id, xmlNode* cnode):
 	ImitatorTank_SK(id, cnode),
 	CheckWaterLevelTimer(uniset_conf()->getIntProp(cnode, "overrun_delay_msec"))
 {	
-	cout << "ControlProcess" << endl; 
+	cout << "ImitatorTank Constructor" << endl; 
 	IncrementWaterLevel = 2; 
 
 	if( cnode == NULL ) 
 		throw Exception( myname + ": FAILED! not found confnode in confile!" );
+
+    // Verification of varialbles
+    if(TankSize <= 0){
+        throw Exception( myname + ":Tank size <= 0!" );
+    }
+    // Verification of LevelIncSpeed
+    if(LevelIncSpeed < 0){
+        throw Exception( myname + ":LevelIncSpeed < 0!" );
+    }
+    // Verification of LevelDecSpeed
+    if(LevelDecSpeed < 0){
+        throw Exception( myname + ":LevelDecSpeed < 0!" );
+    }
 
 	if( CheckWaterLevelTimer < 0 )
 	    CheckWaterLevelTimer = 0;
@@ -41,68 +45,80 @@ ImitatorTank::ImitatorTank()
 // ------------------------------------------------------------------------------------------
 void ImitatorTank::sensorInfo( const SensorMessage *sm )   
 {
-	cout << "WaterLevel is changed " << out_WaterLevel << endl;
-	
+    //включение/выключение насосов
 	if(sm->id == SwitchOnIncLevelPump){
-        cout << "SwitchOnIncLevelPump " << in_SwitchOnIncLevelPump << endl;
+        
         if(in_SwitchOnIncLevelPump){
-            is_SwitchOnIncLevelPump = true;
+            is_SwitchOnIncLevelPump = 1;
         }else{
-            is_SwitchOnIncLevelPump = false;
+            is_SwitchOnIncLevelPump = 0;
         }
     } 
     if(sm->id == SwitchOffIncLevelPump){
        if(in_SwitchOffIncLevelPump){
-            is_SwitchOffIncLevelPump = true;
+            is_SwitchOffIncLevelPump = 1;
         }else{
-            is_SwitchOffIncLevelPump = false;
+            is_SwitchOffIncLevelPump = 0;
         }
     } 
     if(sm->id == SwitchOffDecLevelPump){
        if(in_SwitchOffDecLevelPump){
-            is_SwitchOffDecLevelPump = true;
+            is_SwitchOffDecLevelPump = 1;
         }else{
-            is_SwitchOffDecLevelPump = false;
+            is_SwitchOffDecLevelPump = 0;
         }
     } 
     if(sm->id == SwitchOnDecLevelPump){
         
        if(in_SwitchOnDecLevelPump){
-            is_SwitchOnDecLevelPump = true;
+            is_SwitchOnDecLevelPump = 1;
         }else{
-            is_SwitchOnDecLevelPump= false;
+            is_SwitchOnDecLevelPump= 0;
         }
-    } 
-
-    if(is_SwitchOnIncLevelPump == false && 
-    is_SwitchOffIncLevelPump == false && 
-    is_SwitchOffDecLevelPump == false && 
-    is_SwitchOnDecLevelPump == false
-    ){
-        out_WaterLevel = 0;
-    }
-
-    if(is_SwitchOnIncLevelPump == true && 
-    is_SwitchOffIncLevelPump == false && 
-    is_SwitchOffDecLevelPump == true && 
-    is_SwitchOnDecLevelPump == false
-    ){
-        out_WaterLevel = out_WaterLevel - LevelDecSpeed;
-    }
-
-    if(is_SwitchOnIncLevelPump == false && 
-    is_SwitchOffIncLevelPump == true && 
-    is_SwitchOffDecLevelPump == false && 
-    is_SwitchOnDecLevelPump == true
-    ){
-        out_WaterLevel = out_WaterLevel + LevelIncSpeed;
-    }
-
-        
+    }       
 }
-   
- 
+  
 // ------------------------------------------------------------------------------------------
+void ImitatorTank::step(){
+    //Pump off
+    if(is_SwitchOnIncLevelPump == 0 && 
+    is_SwitchOffIncLevelPump == 1 && 
+    is_SwitchOffDecLevelPump == 0 && 
+    is_SwitchOnDecLevelPump == 1
+    ){
+        iniImitator = true;
+        IncLevelPump = false;
+        DecLevelPump = true;  
+    }
+
+    //Pump on
+    if(is_SwitchOnDecLevelPump  == 0 && 
+    is_SwitchOffDecLevelPump  == 1 && 
+    is_SwitchOffIncLevelPump  == 0 && 
+    is_SwitchOnIncLevelPump == 1
+    ){
+        iniImitator = true;
+        DecLevelPump = false;
+        IncLevelPump = true;
+        
+    }
+
+    if(iniImitator){ // initialization of imitator
+        if(IncLevelPump){ 
+            if(out_WaterLevel > 900){
+                LevelIncSpeed = 0;
+                LevelDecSpeed = 0;
+                DecLevelPump = 0;
+
+            }
+            out_WaterLevel = out_WaterLevel + LevelIncSpeed;
+        }else if(DecLevelPump){
+            
+            out_WaterLevel = out_WaterLevel - LevelDecSpeed;
+        }
+    }
+}   
+
 
 void ImitatorTank::timerInfo(const TimerMessage *tm)
 {

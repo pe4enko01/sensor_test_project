@@ -1,3 +1,24 @@
+/*!
+	\page ControlProcessPage Формирование пороговых датчиков
+
+ 	\par Разделы
+ 	- \ref CP_Common
+
+	\section CP_Common Класс ControlProcess
+	В методе класса sensorInfo реализована логика изменения аналогового датчика и выставления пороговых датчиков.\n
+	Этот метод вызывается регулярно. Задержка перед повторным вызовом метода указывается в configure.xml параметром overrun_delay_msec.\n
+	Пример:
+	\code
+    <settings>
+        <ControlProcess
+                      overrun_delay_msec="15"
+                      Sensor_AI="Test_AI"
+                     Threshold_High="ThreshHi"
+                     Threshold_Low="ThreshLo"
+        />
+    </settings>
+	\endcode
+*/
 
 #ifndef ImitatorTank_H_
 #define ImitatorTank_H_
@@ -44,7 +65,7 @@ class ImitatorTank:
 
 		/*! Выполнение очередного шага программы.\n
 		Этот метод переопределяет чисто виртуальный метод  абстрактного класса ControlProcess_SK. */
-		virtual void step(){};
+		virtual void step();
 
 		//! Метод, реализующий логику изменения аналогового датчика и выставления пороговых датчиков
 		void sensorInfo( const uniset::SensorMessage *sm ) override;
@@ -52,6 +73,16 @@ class ImitatorTank:
 		//! Метод, реализующий обработку событий по таймеру
 		void timerInfo( const uniset::TimerMessage* tm ) override;
 	private:
+		
+		bool IncLevelPump = {false};
+		bool DecLevelPump = {false};
+		bool iniImitator = {false};
+		int is_SwitchOnIncLevelPump = {0};
+		int is_SwitchOffIncLevelPump  = {0};
+		int is_SwitchOffDecLevelPump = {0};
+		int is_SwitchOnDecLevelPump = {0};
+		
+		
 
 };
 // ------------------------------------------------------------------------------------------

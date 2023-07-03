@@ -11,7 +11,7 @@
  ВСЕ ВАШИ ИЗМЕНЕНИЯ БУДУТ ПОТЕРЯНЫ.
 */ 
 // --------------------------------------------------------------------------
-// generate timestamp: 2023-06-27+03:00
+// generate timestamp: 2023-06-29+03:00
 // -----------------------------------------------------------------------------
 #include <memory>
 #include <iomanip>
@@ -134,11 +134,11 @@ node_WaterLevel(init_node(cnode, "node_WaterLevel")),
 // Используемые идентификаторы сообщений (имена берутся из конф. файла)
 
 // variables
-TankSize(uni_atoi( init4_str(uniset_conf()->getArgParam("--" + (_argprefix.empty() ? myname+"-" : _argprefix) + "TankSize"),uniset_conf()->getProp(cnode,"TankSize"),uniset_conf()->getProp(globalnode,"TankSize"),""))),
-LevelIncSpeed(uni_atoi( init4_str(uniset_conf()->getArgParam("--" + (_argprefix.empty() ? myname+"-" : _argprefix) + "LevelIncSpeed"),uniset_conf()->getProp(cnode,"LevelIncSpeed"),uniset_conf()->getProp(globalnode,"LevelIncSpeed"),""))),
-LevelDecSpeed(uni_atoi( init4_str(uniset_conf()->getArgParam("--" + (_argprefix.empty() ? myname+"-" : _argprefix) + "LevelDecSpeed"),uniset_conf()->getProp(cnode,"LevelDecSpeed"),uniset_conf()->getProp(globalnode,"LevelDecSpeed"),""))),
+TankSize(uni_atoi( init4_str(uniset_conf()->getArgParam("--" + (_argprefix.empty() ? myname+"-" : _argprefix) + "TankSize"),uniset_conf()->getProp(cnode,"TankSize"),uniset_conf()->getProp(globalnode,"TankSize"),"1000"))),
+LevelIncSpeed(uni_atoi( init4_str(uniset_conf()->getArgParam("--" + (_argprefix.empty() ? myname+"-" : _argprefix) + "LevelIncSpeed"),uniset_conf()->getProp(cnode,"LevelIncSpeed"),uniset_conf()->getProp(globalnode,"LevelIncSpeed"),"10"))),
+LevelDecSpeed(uni_atoi( init4_str(uniset_conf()->getArgParam("--" + (_argprefix.empty() ? myname+"-" : _argprefix) + "LevelDecSpeed"),uniset_conf()->getProp(cnode,"LevelDecSpeed"),uniset_conf()->getProp(globalnode,"LevelDecSpeed"),"10"))),
 
-sleep_msec(1000),
+sleep_msec(150),
 active(true),
 argprefix( (_argprefix.empty() ? myname+"-" : _argprefix) ),
 
@@ -282,7 +282,7 @@ end_private(false)
 	si.id = uniset::DefaultObjectId;
 	si.node = conf->getLocalNode();
 	
-	sleep_msec = conf->getArgPInt("--" + argprefix + "sleep-msec","1000", 1000);
+	sleep_msec = conf->getArgPInt("--" + argprefix + "sleep-msec","150", 150);
 
 	string s_resetTime("");
 	if( s_resetTime.empty() ) // -V547

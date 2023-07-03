@@ -27,7 +27,9 @@ Makefile.in
 /src/.deps/
 /docs/html/
 /docs/Dox.cfg
-/src/Algorithms/ControlProcess/ControlProcess_SK.cc
-/src/Algorithms/ControlProcess/ControlProcess_SK.h
-/src/Algorithms/ControlProcess/controlprocess
+*_SK.cc
+*_SK.h
 /src/GUI/test
+/Build
+/build
+/.vscode
