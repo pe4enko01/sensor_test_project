@@ -6,5 +6,5 @@ CXX_DEFINES =
 
 CXX_INCLUDES = -I/usr/include/uniset2 -I/usr/include/libxml2 -I/usr/include/sigc++-2.0 -I/usr/lib64/sigc++-2.0/include -I/usr/include/uniset2/extensions
 
-CXX_FLAGS =  -fprofile-arcs -ftest-coverage -fPIC -std=c++11 -g
+CXX_FLAGS =  -fprofile-arcs -ftest-coverage -fPIC -std=c++11
 

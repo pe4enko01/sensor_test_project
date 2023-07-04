@@ -105,18 +105,15 @@ void ImitatorTank::step(){
 
     if(iniImitator){ // initialization of imitator
         if(IncLevelPump){ 
-            if(out_WaterLevel > 900){
-                LevelIncSpeed = 0;
-                LevelDecSpeed = 0;
-                DecLevelPump = 0;
-
-            }
+            
             out_WaterLevel = out_WaterLevel + LevelIncSpeed;
         }else if(DecLevelPump){
             
             out_WaterLevel = out_WaterLevel - LevelDecSpeed;
         }
     }
+
+    
 }   
 
 

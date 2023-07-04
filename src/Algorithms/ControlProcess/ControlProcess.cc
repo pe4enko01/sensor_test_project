@@ -5,6 +5,9 @@ using namespace std;
 using namespace uniset;
 // ------------------------------------------------------------------------------------------
 
+int isLevelHight = 0;
+int isLevelLow = 0;
+
 ControlProcess::ControlProcess(uniset::ObjectId id, xmlNode *cnode) : ControlProcess_SK(id, cnode),
 																	  StartTimerDelay(uniset_conf()->getIntProp(cnode, "overrun_delay_msec"))
 {
@@ -77,8 +80,16 @@ void ControlProcess::sensorInfo(const SensorMessage *sm)
 	// ЗАПУСК WaterLevel
 	if (flagStartProcess){
 		if (sm->id == WaterLevel){
-			myinfo << "in_WaterLevel " << in_WaterLevel << endl;	
 			
+			if(isLevelLow == 1){
+				myinfo << "in_WaterLevel " << in_WaterLevel  << " isLevelLow!"  << endl;
+			}else if(isLevelHight == 1){
+				myinfo << "in_WaterLevel " << in_WaterLevel  << " LevelIsHight!"  << endl;
+			}else if(isLevelLow == 0){
+				myinfo << "in_WaterLevel " << in_WaterLevel  << endl;
+			}else if(isLevelHight == 0){
+				myinfo << "in_WaterLevel " << in_WaterLevel  << endl;
+			}			
 		}
 		else{
 			
@@ -92,26 +103,42 @@ void ControlProcess::sensorInfo(const SensorMessage *sm)
 void ControlProcess::step(){
 	
 	// Установка флагов
-	out_LevelIsHigh = (in_WaterLevel > LevelIsHighThreshold); 
-	out_LevelIsCritHigh = (in_WaterLevel > LevelIsCritLosThreshold);   
-	out_LevelIsLow = (in_WaterLevel < LevelIsLowThreshold);    
-	out_LevelIsCritLow = (in_WaterLevel < LevelIsCritLosThreshold);  
+	
+	// out_LevelIsHigh = (in_WaterLevel > LevelIsHighThreshold); 
+	// out_LevelIsCritHigh = (in_WaterLevel > LevelIsCritLosThreshold);   
+	// out_LevelIsLow = (in_WaterLevel < LevelIsLowThreshold);    
+	// out_LevelIsCritLow = (in_WaterLevel < LevelIsCritLosThreshold);  
 
 	// StartProcess
 	if(flagStartProcess){
-		if(in_WaterLevel > LevelIsHighThreshold){
+		if(in_WaterLevel > FullLevelThreshold){
 			out_SwitchOnIncLevelPump = false;
 			out_SwitchOffIncLevelPump = true;
 			out_SwitchOffDecLevelPump = false;
 			out_SwitchOnDecLevelPump = true;
 
 			
-		}else if(in_WaterLevel < LevelIsLowThreshold){
+		}else if(in_WaterLevel < EmptyLevelThreshold){
 			out_SwitchOnDecLevelPump = false;
 			out_SwitchOffDecLevelPump = true;
 			out_SwitchOffIncLevelPump = false;
 			out_SwitchOnIncLevelPump = true;
 		}		
+	
+		if(in_WaterLevel > 910 ){
+			isLevelHight = 1;
+		}else if(in_WaterLevel < 890){
+			isLevelHight = 0;
+		}
+		
+		
+
+		if(in_WaterLevel < 10 ){
+			isLevelLow = 1;
+		}else if(in_WaterLevel 	> 30){
+			isLevelLow = 0;
+		}
+	
 	}else{
 			out_SwitchOnDecLevelPump = false;
 			out_SwitchOffDecLevelPump = true;
