@@ -1,0 +1,28 @@
+1. Проверка высокого уровня
+    ./setValue Tank1_WaterLevel_AS=1000
+    ./getValue Tank1_LevelIsHigh_S=1
+
+    ./setValue Tank1_LevelIsHigh_S=1000000
+    ./setValue Tank1_LevelIsHigh_S=920
+    ./setValue Tank1_LevelIsHigh_S=910
+    ./setValue Tank1_LevelIsHigh_S=900
+    ./setValue Tank1_LevelIsHigh_S=890
+    ./setValue Tank1_LevelIsHigh_S=880
+
+
+2. Проверка высокого уровня
+
+
+
+<?xml version = '1.0' encoding = 'utf-8'?>
+<TestScenario>
+<Config>
+...
+</Config>
+<TestList type="uniset">
+  <test name="Stopped" comment="Проверка остановки процесса">
+     <action set="Tank1_WaterLevel_AS=1000" comment="устанавливаем уровень воды 1000 литров'"/>
+     <check test="Tank1_LevelIsHigh_S=1" comment="Активация высокого уровня"/>
+  </test>
+</TestList>
+</TestScenario>

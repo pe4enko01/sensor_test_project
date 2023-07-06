@@ -5,9 +5,6 @@ using namespace std;
 using namespace uniset;
 // ------------------------------------------------------------------------------------------
 
-int isLevelHight = 0;
-int isLevelLow = 0;
-
 ControlProcess::ControlProcess(uniset::ObjectId id, xmlNode *cnode) : ControlProcess_SK(id, cnode),
 																	  StartTimerDelay(uniset_conf()->getIntProp(cnode, "overrun_delay_msec"))
 {
@@ -52,7 +49,7 @@ ControlProcess::~ControlProcess()
 // ------------------------------------------------------------------------------------------
 ControlProcess::ControlProcess()
 {
-	mycrit << myname << ": init failed!!!!!!!!!!!!!!!" << endl;
+	mycrit << myname << ": ControlProcess init failed!!!!!!!!!!!!!!!" << endl;
 	throw Exception();
 }
 // ------------------------------------------------------------------------------------------
@@ -61,35 +58,34 @@ void ControlProcess::sensorInfo(const SensorMessage *sm)
 
 	// ЗАПУСК ПРОЦЕССА
 	if(sm->id == StartProcess)
-	{
-		
- 		myinfo<< "Start  ControlProcess"<< endl;
+	{	
+		myinfo << myname << "----------------------------------------------------------------------------"<< endl;
+		myinfo<< "(ControlProcess)_Start of process controlling the swiching on/off of the pumps in the tankers."<< endl;
+ 		myinfo<< "----------------------------------------------------------------------------"<< endl;
+
 		if (in_StartProcess){
-			
-			myinfo << "Process is running" << endl;
+			myinfo<< "----------------------------------------------------------------------------"<< endl;
+			myinfo<< "(ControlProcess)_Pumps in tankers is ON. (ControlProcess)"<< endl;
+			myinfo<< "----------------------------------------------------------------------------"<< endl;
+
 			flagStartProcess = 1;
 		}
 		else{
-			myinfo << "Process stopped" << endl;
+			myinfo<< "----------------------------------------------------------------------------"<< endl;
+			myinfo<< "(ControlProcess)_Pumps in tankers is OFF. (ControlProcess)"<< endl;
+			myinfo<< "----------------------------------------------------------------------------"<< endl;
 			flagStartProcess = 0;
 		}
 	}
 	else{
-		
+		myinfo<< "----------------------------------------------------------------------------"<< endl;
+		myinfo<< "Stop of process controlling the swiching on/off of the pumps in the tanker1. (ControlProcess)"<< endl;
+ 		myinfo<< "----------------------------------------------------------------------------"<< endl;
 	}
 	// ЗАПУСК WaterLevel
 	if (flagStartProcess){
 		if (sm->id == WaterLevel){
 			
-			if(isLevelLow == 1){
-				myinfo << "in_WaterLevel " << in_WaterLevel  << " isLevelLow!"  << endl;
-			}else if(isLevelHight == 1){
-				myinfo << "in_WaterLevel " << in_WaterLevel  << " LevelIsHight!"  << endl;
-			}else if(isLevelLow == 0){
-				myinfo << "in_WaterLevel " << in_WaterLevel  << endl;
-			}else if(isLevelHight == 0){
-				myinfo << "in_WaterLevel " << in_WaterLevel  << endl;
-			}			
 		}
 		else{
 			
@@ -102,13 +98,6 @@ void ControlProcess::sensorInfo(const SensorMessage *sm)
 // ------------------------------------------------------------------------------------------
 void ControlProcess::step(){
 	
-	// Установка флагов
-	
-	// out_LevelIsHigh = (in_WaterLevel > LevelIsHighThreshold); 
-	// out_LevelIsCritHigh = (in_WaterLevel > LevelIsCritLosThreshold);   
-	// out_LevelIsLow = (in_WaterLevel < LevelIsLowThreshold);    
-	// out_LevelIsCritLow = (in_WaterLevel < LevelIsCritLosThreshold);  
-
 	// StartProcess
 	if(flagStartProcess){
 		if(in_WaterLevel > FullLevelThreshold){
@@ -125,19 +114,35 @@ void ControlProcess::step(){
 			out_SwitchOnIncLevelPump = true;
 		}		
 	
-		if(in_WaterLevel > 910 ){
+		if(in_WaterLevel >= 910 ){
 			isLevelHight = 1;
-		}else if(in_WaterLevel < 890){
+		}else if(in_WaterLevel <= 890){
 			isLevelHight = 0;
 		}
 		
 		
 
-		if(in_WaterLevel < 10 ){
+		if(in_WaterLevel <= 10 ){
 			isLevelLow = 1;
-		}else if(in_WaterLevel 	> 30){
+		}else if(in_WaterLevel 	>= 20){
 			isLevelLow = 0;
 		}
+
+		if(isLevelLow == 1){
+			myinfo << "------- Water level is Low! -------" << "Water level is " << in_WaterLevel << " (ControlProcess)" << endl;
+		}else if(isLevelHight == 1){
+			myinfo << "------- Water level is  Hight! -------" << "Water level is  " << in_WaterLevel << " (ControlProcess)" << endl;
+		}else if(isLevelLow == 0){
+			myinfo << "Water level is  " << in_WaterLevel  << " (ControlProcess)" << endl;
+		}else if(isLevelHight == 0){
+			myinfo << "Water level is  " << in_WaterLevel  << " (ControlProcess)" << endl;
+		}			
+
+		// Установка флагов
+		out_LevelIsHigh = isLevelHight; 
+		//out_LevelIsCritHigh = (in_WaterLevel > LevelIsCritLosThreshold);   
+		out_LevelIsLow = isLevelLow;   
+		//out_LevelIsCritLow = (in_WaterLevel < LevelIsCritLosThreshold); 
 	
 	}else{
 			out_SwitchOnDecLevelPump = false;

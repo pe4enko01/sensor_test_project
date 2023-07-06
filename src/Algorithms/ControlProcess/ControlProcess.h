@@ -73,9 +73,12 @@ class ControlProcess:
 		//! Метод, реализующий обработку событий по таймеру
 		void timerInfo( const uniset::TimerMessage* tm ) override;
 
-		virtual std::string getMonitInfo() const override { return "getMonitInfo from controlprocess"; }
+		virtual std::string getMonitInfo() const override { return {flagStartProcess}; }
 	private:
 		bool flagStartProcess = {false};
+		int isLevelHight = {0};
+		int isLevelLow = {0};
+
 
 };
 // ------------------------------------------------------------------------------------------
