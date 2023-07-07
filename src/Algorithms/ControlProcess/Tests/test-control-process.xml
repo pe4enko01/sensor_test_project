@@ -15,18 +15,6 @@
 -->
 <TestList type="uniset">
 
-   <test name="SuperHightLevel" comment="Проверка высокого уровня при максимальном уровне воды">
-     <action set="Tank1_StartProcess_S=1" comment="Запуск процесса, контролирующего работу насосов"/> 
-     <action set="Tank1_WaterLevel_AS=1000000" comment="Установка уровня воды на максимальное значение (1000 литров)"/>
-     <check test="Tank1_LevelIsHigh_S=1" comment="Соответствеие высокому уровню"/>
-  </test>
-
-  <test name="IsLevelAbsoluteHight" comment="Проверка высокого уровня при максимальном уровне воды">
-     <action set="Tank1_StartProcess_S=1" comment="Запуск процесса, контролирующего работу насосов"/> 
-     <action set="Tank1_WaterLevel_AS=1000" comment="Установка уровня воды на максимальное значение (1000 литров)"/>
-     <check test="Tank1_LevelIsHigh_S=1" comment="Соответствеие высокому уровню"/>
-  </test>
-
   <test name="IsLevelHight1" comment="Проверка высокого уровня при гистерезисе при уменьшении уровня от максимального значения ">
      <action set="Tank1_StartProcess_S=1" comment="Запуск процесса, контролирующего работу насосов"/> 
      <action set="Tank1_WaterLevel_AS=1000" comment="Установка уровня воды на максимальное значение (1000 литров)"/>

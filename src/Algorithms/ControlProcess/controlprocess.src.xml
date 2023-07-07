@@ -25,7 +25,9 @@
             <item name = "LevelIsLowThreshold" default="100" type="long" public="1" comment="ставка для формирования сигнала предупреждение: низкий уровень в баке"/> 
             <item name = "LevelIsCritLosThreshold" default="10" type="long" public="1" comment="уставка для формирования сигнала предупреждение: высокий уровень в баке"/> 
             <item name = "FullLevelThreshold" default="990" type="long" public="1" comment="уставка для останова процесса напонения"/> 
-            <item name = "EmptyLevelThreshold" default="10" type="long" public="1" comment="уставка для формирования сигнала - предупреждение: высокий уровень в баке"/> 
+            <item name = "EmptyLevelThreshold" default="10" type="long" public="1" comment="уставка для формирования сигнала - предупреждение: высокий уровень в баке"/>
+            <item name = "LevelILowThresholdActivate" default="20" type="long" public="1" comment="уставка для формирования сигнала - предупреждение: низкий уровень в баке, при уменьшении количества воды"/>
+            <item name = "LevelIsLowThresholdRelease" default="10" type="long" public="1" comment="уставка для формирования сигнала - предупреждение: низкий уровень в баке"/>
             
 
          </variables> 

@@ -49,7 +49,7 @@ ControlProcess::~ControlProcess()
 // ------------------------------------------------------------------------------------------
 ControlProcess::ControlProcess()
 {
-	mycrit << myname << ": ControlProcess init failed!!!!!!!!!!!!!!!" << endl;
+	mycrit  << myname << ": ControlProcess init failed!!!!!!!!!!!!!!!" << endl;
 	throw Exception();
 }
 // ------------------------------------------------------------------------------------------
@@ -59,27 +59,27 @@ void ControlProcess::sensorInfo(const SensorMessage *sm)
 	// ЗАПУСК ПРОЦЕССА
 	if(sm->id == StartProcess)
 	{	
-		myinfo << myname << "----------------------------------------------------------------------------"<< endl;
-		myinfo<< "(ControlProcess)_Start of process controlling the swiching on/off of the pumps in the tankers."<< endl;
- 		myinfo<< "----------------------------------------------------------------------------"<< endl;
+		myinfo << "[[" << myname << "]]" << "----------------------------------------------------------------------------"<< endl;
+		myinfo << "[[" << myname << "]]" << "Start of process controlling the swiching on/off of the pumps in the tankers."<< endl;
+ 		myinfo << "[[" << myname << "]]" << "----------------------------------------------------------------------------"<< endl;
 
 		if (in_StartProcess){
-			myinfo<< "----------------------------------------------------------------------------"<< endl;
-			myinfo<< "(ControlProcess)_Pumps in tankers is ON. (ControlProcess)"<< endl;
-			myinfo<< "----------------------------------------------------------------------------"<< endl;
+			myinfo << "----------------------------------------------------------------------------"<< endl;
+			myinfo << "[[" << myname << "]]" << "Pumps in tankers is ON."<< endl;
+			myinfo << "----------------------------------------------------------------------------"<< endl;
 
 			flagStartProcess = 1;
 		}
 		else{
 			myinfo<< "----------------------------------------------------------------------------"<< endl;
-			myinfo<< "(ControlProcess)_Pumps in tankers is OFF. (ControlProcess)"<< endl;
+			myinfo << "[[" << myname << "]]" << "Pumps in tankers is OFF."<< endl;
 			myinfo<< "----------------------------------------------------------------------------"<< endl;
 			flagStartProcess = 0;
 		}
 	}
 	else{
 		myinfo<< "----------------------------------------------------------------------------"<< endl;
-		myinfo<< "Stop of process controlling the swiching on/off of the pumps in the tanker1. (ControlProcess)"<< endl;
+		myinfo << "[[" << myname << "]]" << "Stop of process controlling the swiching on/off of the pumps in the tanker1."<< endl;
  		myinfo<< "----------------------------------------------------------------------------"<< endl;
 	}
 	// ЗАПУСК WaterLevel
@@ -114,28 +114,28 @@ void ControlProcess::step(){
 			out_SwitchOnIncLevelPump = true;
 		}		
 	
-		if(in_WaterLevel >= 910 ){
+		if(in_WaterLevel >= LevelIsHighThresholdActivate ){
 			isLevelHight = 1;
-		}else if(in_WaterLevel <= 890){
+		}else if(in_WaterLevel <= LevelIsHighThresholdRelease){
 			isLevelHight = 0;
 		}
 		
 		
 
-		if(in_WaterLevel <= 10 ){
+		if(in_WaterLevel <= LevelIsLowThresholdRelease ){
 			isLevelLow = 1;
-		}else if(in_WaterLevel 	>= 20){
+		}else if(in_WaterLevel 	>= LevelILowThresholdActivate){
 			isLevelLow = 0;
 		}
 
 		if(isLevelLow == 1){
-			myinfo << "------- Water level is Low! -------" << "Water level is " << in_WaterLevel << " (ControlProcess)" << endl;
+			myinfo << "[[" << myname << "]]" << "------- Water level is Low! -------" << "Water level is " << in_WaterLevel << endl;
 		}else if(isLevelHight == 1){
-			myinfo << "------- Water level is  Hight! -------" << "Water level is  " << in_WaterLevel << " (ControlProcess)" << endl;
+			myinfo << "[[" << myname << "]]" << "------- Water level is  Hight! -------" << "Water level is  " << in_WaterLevel << endl;
 		}else if(isLevelLow == 0){
-			myinfo << "Water level is  " << in_WaterLevel  << " (ControlProcess)" << endl;
+			myinfo << "[[" << myname << "]]" << "Water level is  " << in_WaterLevel << endl;
 		}else if(isLevelHight == 0){
-			myinfo << "Water level is  " << in_WaterLevel  << " (ControlProcess)" << endl;
+			myinfo << "[[" << myname << "]]" << "Water level is  " << in_WaterLevel << endl;
 		}			
 
 		// Установка флагов
