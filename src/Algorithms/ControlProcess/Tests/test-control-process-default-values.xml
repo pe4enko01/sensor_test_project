@@ -1,0 +1,29 @@
+<?xml version = '1.0' encoding = 'utf-8'?>
+<TestScenario>
+<Config>
+...
+</Config>
+
+<TestList type="uniset">
+
+<!-- __________Проверка устовок в ControlProcess______________ -->
+
+<test name="checkDefaulteValue" comment="Проверка устовок в ControlProcess">
+     <!-- <check test="LevelIsHighThresholdActivate=910" comment="Соответствеие низкому уровню"/> -->
+
+</test>
+
+</TestList>
+</TestScenario>
+
+
+
+            <!-- <item name = "LevelIsHighThresholdActivate" default="910" type="long" public="1" comment="уставка для формирования сигнала - предупреждение: высокий уровень в баке, при уменьшении количества воды"/>
+            <item name = "LevelIsHighThresholdRelease" default="890" type="long" public="1" comment="уставка для формирования сигнала - предупреждение: высокий уровень в баке"/>
+            <item name = "LevelIsCritHighThreshold" default="950" type="long" public="1" comment="уставка для формирования сигнала предупреждение: аварийно высокий уровень в баке"/> 
+            <item name = "LevelIsLowThreshold" default="100" type="long" public="1" comment="ставка для формирования сигнала предупреждение: низкий уровень в баке"/> 
+            <item name = "LevelIsCritLosThreshold" default="10" type="long" public="1" comment="уставка для формирования сигнала предупреждение: высокий уровень в баке"/> 
+            <item name = "FullLevelThreshold" default="990" type="long" public="1" comment="уставка для останова процесса напонения"/> 
+            <item name = "EmptyLevelThreshold" default="10" type="long" public="1" comment="уставка для формирования сигнала - предупреждение: высокий уровень в баке"/>
+            <item name = "LevelILowThresholdActivate" default="20" type="long" public="1" comment="уставка для формирования сигнала - предупреждение: низкий уровень в баке, при уменьшении количества воды"/>
+            <item name = "LevelIsLowThresholdRelease" default="10" type="long" public="1" comment="уставка для формирования сигнала - предупреждение: низкий уровень в баке"/> -->

@@ -99,7 +99,7 @@ void ControlProcess::sensorInfo(const SensorMessage *sm)
 void ControlProcess::step(){
 	
 	// StartProcess
-	if(flagStartProcess){
+	
 		if(in_WaterLevel > FullLevelThreshold){
 			out_SwitchOnIncLevelPump = false;
 			out_SwitchOffIncLevelPump = true;
@@ -144,7 +144,7 @@ void ControlProcess::step(){
 		out_LevelIsLow = isLevelLow;   
 		//out_LevelIsCritLow = (in_WaterLevel < LevelIsCritLosThreshold); 
 	
-	}else{
+	if(flagStartProcess == 0){
 			out_SwitchOnDecLevelPump = false;
 			out_SwitchOffDecLevelPump = true;
 			out_SwitchOnIncLevelPump = false;

@@ -3,125 +3,169 @@
 <Config>
 ...
 </Config>
-<!-- Тесты в test_control-process.xml выставляют значение высокого/низкого уровня в 0 или 1, в зависимости от уровня воды -->
-<!-- Тесты в test_control-process.xml выставляют значение высокого уровня в 1 если:
-      1. уровень воды понимается от значения, которое ниже чем 890 до значения выше или равно 910.
-      2. если уровень воды падает от уровня воды, которое  выше или равно чем 910, то значение высокого уровня сохраняется до уровня 890, данный эффект обуславливается гистерезисом.
-   в противном случае значение  высокого уровня в выставляется в 0.
+<!-- Тесты проверяют работу алгоритма ControlProcess в части выставления сигналов о высоком/низком уровне воды  -->
+<!-- Тесты проверяют, что выставление сигнала о высоком/низком уровне происходит по методу "гистерезиса" -  
+       сигнал выставляется при большей уставке чем снимается. Проверка уровней происходит на пяти участках в зависимости от уровня воды:
+       - Первый участок располагается меджу максимальным уровнем и верхней границей гистерезиса
+       - Второй участок располагается между верхней границей гистерезиса и нижней границей гистерезиса
+       - Третий участок располагается между нижней границей гистерезиса и минимальным уровнем воды 
+      Проверка уровней происходит на этих трех уастках и границах этих участков, включая максимальное 
+      и минимальное значение. Проверка происходит при постепенном увеличениие уровня воды и его прохождения через участки, затем при уменьшении уровня воды(для проверги работы гистерезиса).
+      Таким образом, всего необходимо совершить 11 проверок.
+
+        Уставка выставления сигнала "высокий уровень" - 910 
+        Уставка снятия сигнала "высокий уровень" - 890 
+        Уставка выставления сигнала "низкий уровень" - 10 
+        Уставка снятия сигнала "низкий уровень" - 20 
+
+
 -->
-<!-- Тесты в test_control-process.xml выставляют значение низкого уровня в 1 если:
-      1. уровень воды понимается от значения, которое ниже чем 10 до значения выше или равно 20.
-      2. если уровень воды падает от уровня воды, которое выше или равно чем 20, то значение высокого уровня сохраняется до уровня 10, данный эффект обуславливается гистерезисом.
--->
+
 <TestList type="uniset">
 
-  <test name="IsLevelHight1" comment="Проверка высокого уровня при гистерезисе при уменьшении уровня от максимального значения ">
-     <action set="Tank1_StartProcess_S=1" comment="Запуск процесса, контролирующего работу насосов"/> 
-     <action set="Tank1_WaterLevel_AS=1000" comment="Установка уровня воды на максимальное значение (1000 литров)"/>
-     <action set="Tank1_WaterLevel_AS=950" comment="Установка уровня воды"/>
-     <check test="Tank1_LevelIsHigh_S=1" comment="Соответствеие высокому уровню"/>
-  </test>
+<!-- __________Проверка НИЗКОГО уровня______________ -->
 
-  <test name="IsLevelHight2" comment="Проверка высокого уровня при гистерезисе при уменьшении уровня от максимального значения до граничного">
-     <action set="Tank1_StartProcess_S=1" comment="Запуск процесса, контролирующего работу насосов"/> 
-     <action set="Tank1_WaterLevel_AS=1000" comment="Установка уровня воды на максимальное значение (1000 литров)"/>
-     <action set="Tank1_WaterLevel_AS=910" comment="Установка уровня воды"/>
-    <check test="Tank1_LevelIsHigh_S=1" comment="Соответствеие высокому уровню"/>
-  </test>
-
-  <test name="IsLevelHight3" comment="Проверка высокого уровня при гистерезисе при уменьшении уровня от максимального значения в граничной зоне гистерезиса">
-     <action set="Tank1_StartProcess_S=1" comment="Запуск процесса, контролирующего работу насосов"/> 
-     <action set="Tank1_WaterLevel_AS=1000" comment="Установка уровня воды на максимальное значение (1000 литров)"/>
-     <action set="Tank1_WaterLevel_AS=900" comment="Установка уровня воды"/>
-     <check test="Tank1_LevelIsHigh_S=1" comment="Соответствеие высокому уровню"/>
-  </test>
-
-  <test name="IsLevelHight4" comment="Проверка отключение высокого уровня при гистерезисе на нижней границе гистрезиса">
-     <action set="Tank1_StartProcess_S=1" comment="Запуск процесса, контролирующего работу насосов"/> 
-     <action set="Tank1_WaterLevel_AS=1000" comment="Установка уровня воды на значение 890 литров"/>
-     <action set="Tank1_WaterLevel_AS=890" comment="Установка уровня воды"/>
-     <check test="Tank1_LevelIsHigh_S=1" comment="Соответствеие высокому уровню"/>
-  </test>
-
-  <test name="IsLevelHight5" comment="Проверка отключение высокого уровня на нижней границе вне гистрезиса">
-     <action set="Tank1_StartProcess_S=1" comment="Запуск процесса, контролирующего работу насосов"/> 
-     <action set="Tank1_WaterLevel_AS=1000" comment="Установка уровня воды на значение 800 литров"/>
-     <action set="Tank1_WaterLevel_AS=800" comment="Установка уровня воды"/>
-     <check test="Tank1_LevelIsHigh_S=1" comment="Соответствеие высокому уровню"/>
-  </test>
-
-  <test name="IsLevelHight6" comment="Проверка значения высокого уровня при гистерезисе от минимального уровня при увеличении уровня в зоне гистерезиса.">
-     <action set="Tank1_StartProcess_S=1" comment="Запуск процесса, контролирующего работу насосов"/> 
-     <action set="Tank1_WaterLevel_AS=100" comment="Установка уровня воды на значение 100 литров"/>
-     <action set="Tank1_WaterLevel_AS=890" comment="Установка уровня воды"/>
-     <check test="Tank1_LevelIsHigh_S=1" comment="Соответствеие высокому уровню"/>
-  </test>
-
-  <test name="IsLevelHight7" comment="Проверка значения высокого уровня при гистерезисе от минимального уровня  в зоне гистерезиса.">
-     <action set="Tank1_StartProcess_S=1" comment="Запуск процесса, контролирующего работу насосов"/> 
-     <action set="Tank1_WaterLevel_AS=100" comment="Установка уровня воды на значение 100 литров"/>
-     <action set="Tank1_WaterLevel_AS=900" comment="Установка уровня воды"/>
-     <check test="Tank1_LevelIsHigh_S=1" comment="Соответствеие высокому уровню"/>
-  </test>
-
-  <test name="IsLevelHight8" comment="Проверка значения высокого уровня при гистерезисе от минимального уровня в зоне гистерезиса.">
-     <action set="Tank1_StartProcess_S=1" comment="Запуск процесса, контролирующего работу насосов"/> 
-     <action set="Tank1_WaterLevel_AS=100" comment="Установка уровня воды на значение 100 литров"/>
-     <action set="Tank1_WaterLevel_AS=910" comment="Установка уровня воды"/>
-     <check test="Tank1_LevelIsHigh_S=1" comment="Соответствеие высокому уровню"/>
-  </test>
-
-  <test name="AbsoluteLow" comment="Проверка значения низкого уровня при минимальном уровне воды">
-     <action set="Tank1_StartProcess_S=1" comment="Запуск процесса, контролирующего работу насосов"/> 
-     <action set="Tank1_WaterLevel_AS=0" comment="Установка уровня воды на значение 100 литров"/>
-     <check test="Tank1_LevelIsLow_S=1" comment="Активация низкого уровня"/>
-     <check test="Tank1_LevelIsHigh_S=0" comment="Соответствеие низкому уровню"/>
-  </test>
-
-  <test name="IsLevelLow1" comment="Проверка значения низкого уровня при гистерезисе от минимального уровня на гранце гистерезиса.">
-     <action set="Tank1_StartProcess_S=1" comment="Запуск процесса, контролирующего работу насосов"/> 
-     <action set="Tank1_WaterLevel_AS=0" comment="Установка уровня воды на значение 0 литров"/>
-     <action set="Tank1_WaterLevel_AS=10" comment="Установка уровня воды"/>
-     <check test="Tank1_LevelIsLow_S=1" comment="Активация низкого уровня"/>
-     <check test="Tank1_LevelIsHigh_S=0" comment="Соответствеие низкому уровню"/>
-  </test>
-
-  <test name="IsLevelLow2" comment="Проверка значения низкого уровня при гистерезисе от минимального уровня в зоне гистерезиса.">
-     <action set="Tank1_StartProcess_S=1" comment="Запуск процесса, контролирующего работу насосов"/> 
-     <action set="Tank1_WaterLevel_AS=0" comment="Установка уровня воды на значение 0 литров"/>
-     <action set="Tank1_WaterLevel_AS=15" comment="Установка уровня воды"/>
-     <check test="Tank1_LevelIsLow_S=1" comment="Активация низкого уровня"/>
-     <check test="Tank1_LevelIsHigh_S=0" comment="Соответствеие низкому уровню"/>
-  </test>
-
-  <test name="IsLevelLow3" comment="Проверка значения низкого уровня при гистерезисе от минимального уровня до верхней границы гистерезиса.">
-     <action set="Tank1_StartProcess_S=1" comment="Запуск процесса, контролирующего работу насосов"/> 
-     <action set="Tank1_WaterLevel_AS=0" comment="Установка уровня воды на значение 0 литров"/>
-     <action set="Tank1_WaterLevel_AS=20" comment="Установка уровня воды"/>
-     <check test="Tank1_LevelIsHigh_S=0" comment="Соответствеие низкому уровню"/>
-     
-  </test>
-
-   <test name="IsLevelLow4" comment="Проверка значения низкого уровня при гистерезисе от высокого зоне гистерезса.">
-     <action set="Tank1_StartProcess_S=1" comment="Запуск процесса, контролирующего работу насосов"/> 
-     <action set="Tank1_WaterLevel_AS=100" comment="Установка уровня воды на значение 0 литров"/>
-     <action set="Tank1_WaterLevel_AS=15" comment="Установка уровня воды"/>
-     <check test="Tank1_LevelIsHigh_S=0" comment="Соответствеие низкому уровню"/>
-     
-  </test>
-
-   <test name="IsLevelLow5" comment="Проверка значения низкого уровня при гистерезисе от высокого уровня до минимального уровня гистерезиса.">
-     <action set="Tank1_StartProcess_S=1" comment="Запуск процесса, контролирующего работу насосов"/> 
-     <action set="Tank1_WaterLevel_AS=100" comment="Установка уровня воды на значение 0 литров"/>
-     <action set="Tank1_WaterLevel_AS=10" comment="Установка уровня воды"/>
-     <check test="Tank1_LevelIsHigh_S=0" comment="Соответствеие низкому уровню"/>
-  </test>
-
-  <test name="SuperHightLevel" comment="Проверка значения низкого уровня при -1000000">
-     <action set="Tank1_StartProcess_S=1" comment="Запуск процесса, контролирующего работу насосов"/> 
-     <action set="Tank1_WaterLevel_AS=-1000000" comment="Установка уровня воды -1000000"/>
+<test name="WaterLevelZero" comment="Проверка выставления НИЗКОГО уровня">
+     <action set="Tank1_WaterLevel_AS=0" comment="Установка уровня воды"/>
+     <check test="Tank1_LevelIsLow_S=1" comment="Соответствеие низкому уровню"/>
      <check test="Tank1_LevelIsHigh_S=0" comment="Соответствеие высокому уровню"/>
-  </test>
+</test>
+
+<test name="BetweenZeroAndLowHist" comment="Проверка выставления НИЗКОГО уровня">
+     <action set="Tank1_WaterLevel_AS=5" comment="Установка уровня воды"/>
+     <check test="Tank1_LevelIsLow_S=1" comment="Соответствеие низкому уровню"/>
+     <check test="Tank1_LevelIsHigh_S=0" comment="Соответствеие высокому уровню"/>
+</test>
+
+<test name="LowHist" comment="Проверка выставления НИЗКОГО уровня">
+     <action set="Tank1_WaterLevel_AS=10" comment="Установка уровня воды"/>
+     <check test="Tank1_LevelIsLow_S=1" comment="Соответствеие низкому уровню"/>
+     <check test="Tank1_LevelIsHigh_S=0" comment="Соответствеие высокому уровню"/>
+</test>
+
+<test name="BetweenLowAndHightHist" comment="Проверка выставления НИЗКОГО уровня">
+     <action set="Tank1_WaterLevel_AS=15" comment="Установка уровня воды"/>
+     <check test="Tank1_LevelIsLow_S=1" comment="Соответствеие низкому уровню"/>
+     <check test="Tank1_LevelIsHigh_S=0" comment="Соответствеие высокому уровню"/>
+</test>
+
+<test name="HightHist" comment="Проверка выставления НИЗКОГО уровня">
+     <action set="Tank1_WaterLevel_AS=20" comment="Установка уровня воды"/>
+     <check test="Tank1_LevelIsLow_S=0" comment="Соответствеие низкому уровню"/>
+     <check test="Tank1_LevelIsHigh_S=0" comment="Соответствеие высокому уровню"/>
+</test>
+
+<test name="BetweenHightHistAndMaxLevel" comment="Проверка выставления НИЗКОГО уровня">
+     <action set="Tank1_WaterLevel_AS=100" comment="Установка уровня воды"/>
+     <check test="Tank1_LevelIsLow_S=0" comment="Соответствеие низкому уровню"/>
+     <check test="Tank1_LevelIsHigh_S=0" comment="Соответствеие высокому уровню"/>
+</test>
+
+<test name="HightHist" comment="Проверка выставления НИЗКОГО уровня">
+     <action set="Tank1_WaterLevel_AS=20" comment="Установка уровня воды"/>
+     <check test="Tank1_LevelIsLow_S=0" comment="Соответствеие низкому уровню"/>
+     <check test="Tank1_LevelIsHigh_S=0" comment="Соответствеие высокому уровню"/>
+</test>
+
+<test name="BetweenLowAndHightHist" comment="Проверка выставления НИЗКОГО уровня">
+     <action set="Tank1_WaterLevel_AS=15" comment="Установка уровня воды"/>
+     <check test="Tank1_LevelIsLow_S=0" comment="Соответствеие низкому уровню"/>
+     <check test="Tank1_LevelIsHigh_S=0" comment="Соответствеие высокому уровню"/>
+</test>
+
+<test name="LowHist" comment="Проверка выставления НИЗКОГО уровня">
+     <action set="Tank1_WaterLevel_AS=10" comment="Установка уровня воды"/>
+     <check test="Tank1_LevelIsLow_S=1" comment="Соответствеие низкому уровню"/>
+     <check test="Tank1_LevelIsHigh_S=0" comment="Соответствеие высокому уровню"/>
+</test>
+
+<test name="BetweenZeroAndLowHist" comment="Проверка выставления НИЗКОГО уровня">
+     <action set="Tank1_WaterLevel_AS=5" comment="Установка уровня воды"/>
+     <check test="Tank1_LevelIsLow_S=1" comment="Соответствеие низкому уровню"/>
+     <check test="Tank1_LevelIsHigh_S=0" comment="Соответствеие высокому уровню"/>
+</test>
+
+<test name="WaterLevelZero" comment="Проверка выставления НИЗКОГО уровня">
+     <action set="Tank1_WaterLevel_AS=0" comment="Установка уровня воды"/>
+     <check test="Tank1_LevelIsLow_S=1" comment="Соответствеие низкому уровню"/>
+     <check test="Tank1_LevelIsHigh_S=0" comment="Соответствеие высокому уровню"/>
+</test>
+
+<test name="WaterLevelZero" comment="Проверка выставления НИЗКОГО уровня">
+     <action set="Tank1_WaterLevel_AS=0" comment="Установка уровня воды"/>
+     <check test="Tank1_LevelIsLow_S=1" comment="Соответствеие низкому уровню"/>
+     <check test="Tank1_LevelIsHigh_S=0" comment="Соответствеие высокому уровню"/>
+</test>
+
+<!-- __________Проверка ВЫСОКОГО уровня______________ -->
+
+<test name="BetweenZeroAndLowHist" comment="Проверка выставления Высокого уровня">
+     <action set="Tank1_WaterLevel_AS=500" comment="Установка уровня воды"/>
+     <check test="Tank1_LevelIsLow_S=0" comment="Соответствеие низкому уровню"/>
+     <check test="Tank1_LevelIsHigh_S=0" comment="Соответствеие высокому уровню"/>
+</test>
+
+<test name="LowHist" comment="Проверка выставления Высокого уровня">
+     <action set="Tank1_WaterLevel_AS=890" comment="Установка уровня воды"/>
+     <check test="Tank1_LevelIsLow_S=0" comment="Соответствеие низкому уровню"/>
+     <check test="Tank1_LevelIsHigh_S=0" comment="Соответствеие высокому уровню"/>
+</test>
+
+<test name="BetweenLowAndHightHist" comment="Проверка выставления Высокого уровня">
+     <action set="Tank1_WaterLevel_AS=900" comment="Установка уровня воды"/>
+     <check test="Tank1_LevelIsLow_S=0" comment="Соответствеие низкому уровню"/>
+     <check test="Tank1_LevelIsHigh_S=0" comment="Соответствеие высокому уровню"/>
+</test>
+
+<test name="HightHist" comment="Проверка выставления Высокого уровня">
+     <action set="Tank1_WaterLevel_AS=910" comment="Установка уровня воды"/>
+     <check test="Tank1_LevelIsLow_S=0" comment="Соответствеие низкому уровню"/>
+     <check test="Tank1_LevelIsHigh_S=1" comment="Соответствеие высокому уровню"/>
+</test>
+
+<test name="BetweenHightHistAndMaxLevel" comment="Проверка выставления Высокого уровня">
+     <action set="Tank1_WaterLevel_AS=950" comment="Установка уровня воды"/>
+     <check test="Tank1_LevelIsLow_S=0" comment="Соответствеие низкому уровню"/>
+     <check test="Tank1_LevelIsHigh_S=1" comment="Соответствеие высокому уровню"/>
+</test>
+
+<test name="MaxLevel" comment="Проверка выставления Высокого уровня">
+     <action set="Tank1_WaterLevel_AS=1000" comment="Установка уровня воды"/>
+     <check test="Tank1_LevelIsLow_S=0" comment="Соответствеие низкому уровню"/>
+     <check test="Tank1_LevelIsHigh_S=1" comment="Соответствеие высокому уровню"/>
+</test>
+
+<test name="BetweenHightHistAndMaxLevel" comment="Проверка выставления Высокого уровня">
+     <action set="Tank1_WaterLevel_AS=950" comment="Установка уровня воды"/>
+     <check test="Tank1_LevelIsLow_S=0" comment="Соответствеие низкому уровню"/>
+     <check test="Tank1_LevelIsHigh_S=1" comment="Соответствеие высокому уровню"/>
+</test>
+
+<test name="HightHist" comment="Проверка выставления Высокого уровня">
+     <action set="Tank1_WaterLevel_AS=910" comment="Установка уровня воды"/>
+     <check test="Tank1_LevelIsLow_S=0" comment="Соответствеие низкому уровню"/>
+     <check test="Tank1_LevelIsHigh_S=1" comment="Соответствеие высокому уровню"/>
+</test>
+
+<test name="BetweenLowAndHightHist" comment="Проверка выставления Высокого уровня">
+     <action set="Tank1_WaterLevel_AS=900" comment="Установка уровня воды"/>
+     <check test="Tank1_LevelIsLow_S=0" comment="Соответствеие низкому уровню"/>
+     <check test="Tank1_LevelIsHigh_S=1" comment="Соответствеие высокому уровню"/>
+</test>
+
+<test name="LowHist" comment="Проверка выставления Высокого уровня">
+     <action set="Tank1_WaterLevel_AS=810" comment="Установка уровня воды"/>
+     <check test="Tank1_LevelIsLow_S=0" comment="Соответствеие низкому уровню"/>
+     <check test="Tank1_LevelIsHigh_S=0" comment="Соответствеие высокому уровню"/>
+</test>
+
+<test name="BetweenZeroAndLowHist" comment="Проверка выставления Высокого уровня">
+     <action set="Tank1_WaterLevel_AS=800" comment="Установка уровня воды"/>
+     <check test="Tank1_LevelIsLow_S=0" comment="Соответствеие низкому уровню"/>
+     <check test="Tank1_LevelIsHigh_S=0" comment="Соответствеие высокому уровню"/>
+</test>
+
+
 </TestList>
 </TestScenario>
 
