@@ -26,15 +26,20 @@
 
 #include <UniXML.h>
 #include "ControlProcess_SK.h"
+
+
 // ------------------------------------------------------------------------------------------
 /*!	
 	Реализация алгоритов формирования пороговых датчиков
 	\sa \ref ControlProcessPage
 */
+
+
 class ControlProcess:
 	public ControlProcess_SK
 {
 	public:
+
 
 		/*! Конструктор класса.\n
 		id - идентификатор объекта ControlProcess в configure.xml \n
@@ -51,6 +56,34 @@ class ControlProcess:
 			tmIncLevel, 
 			tmDecLevel
 		};
+	// void setState(State* st){ ////////////////////////////////////
+    //         if(state != nullptr) delete state;
+    //         state = st;
+    //         state->SetControlProcess(this);
+    //         state->init();
+    //     };
+
+    //     void step (){
+    //         state->processLogic();
+    //     };
+
+    //     void PumpFillOff(){   
+            
+    //         std::cout << "Насос накачки отключен" << std::endl;
+    //     };
+    //     void PumpFillOn(){
+    //          std::cout << "Насос накачки включен" << std::endl;
+             
+    //     };
+    //     void PumpDryOff(){
+    //           std::cout << "Насос откачки отключен" << std::endl;
+    //     };
+    //     void PumpDryOn(){
+    //           std::cout << "Насос откачки включен" << std::endl;
+    //     };
+    //     bool start = {false};
+    //     int level = {0};
+
 
 	protected:
 		//! Задержка перед повторным вызовом метода sensorInfo
@@ -61,7 +94,11 @@ class ControlProcess:
 
 		/*! Конструктор класса по умолчанию.\n
 		Доступен только для производных классов. */
-		ControlProcess();
+		//ControlProcess();
+			// state = new PupmOnState();  ///////////////////////////////////////
+            // state->SetControlProcess(this);
+            // state->init();
+	
 
 		/*! Выполнение очередного шага программы.\n
 		Этот метод переопределяет чисто виртуальный метод  абстрактного класса ControlProcess_SK. */
@@ -75,6 +112,8 @@ class ControlProcess:
 
 		virtual std::string getMonitInfo() const override { return {flagStartProcess}; }
 	private:
+
+		// s ///////////////////////////////////////////////////
 		bool flagStartProcess = {false};
 		int isLevelHight = {0};
 		int isLevelLow = {0};

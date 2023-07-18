@@ -674,7 +674,8 @@ src/Algorithms/ControlProcess/CMakeFiles/controlprocess.dir/ControlProcess.cc.o:
   /usr/include/c++/10/bits/regex_executor.h \
   /usr/include/c++/10/bits/regex_executor.tcc \
   /usr/include/uniset2/VMonitor.h \
-  ../src/Algorithms/ControlProcess/settings.h
+  ../src/Algorithms/ControlProcess/settings.h \
+  ../src/Algorithms/ControlProcess/State.h
 
 src/Algorithms/ControlProcess/CMakeFiles/controlprocess.dir/ControlProcess_SK.cc.o: ../src/Algorithms/ControlProcess/ControlProcess_SK.cc \
   /usr/include/stdc-predef.h \
@@ -2196,6 +2197,8 @@ src/Algorithms/ControlProcess/CMakeFiles/controlprocess.dir/controlprocess.cc.o:
 /usr/include/bits/resource.h:
 
 /usr/include/sys/resource.h:
+
+../src/Algorithms/ControlProcess/State.h:
 
 /usr/include/uniset2/ThreadCreator.h:
 

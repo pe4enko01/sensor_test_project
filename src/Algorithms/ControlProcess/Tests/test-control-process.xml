@@ -25,43 +25,43 @@
 
 <!-- __________Проверка НИЗКОГО уровня______________ -->
 
-<test name="WaterLevelZero" comment="Проверка выставления НИЗКОГО уровня">
+<test name="WaterLevelZero" comment="Проверка выставления НИЗКОГО уровня на минимальном уровне воды">
      <action set="Tank1_WaterLevel_AS=0" comment="Установка уровня воды"/>
      <check test="Tank1_LevelIsLow_S=1" comment="Соответствеие низкому уровню"/>
      <check test="Tank1_LevelIsHigh_S=0" comment="Соответствеие высокому уровню"/>
 </test>
 
-<test name="BetweenZeroAndLowHist" comment="Проверка выставления НИЗКОГО уровня">
+<test name="BetweenZeroAndLowHyst" comment="Проверка выставления НИЗКОГО уровня между ">
      <action set="Tank1_WaterLevel_AS=5" comment="Установка уровня воды"/>
      <check test="Tank1_LevelIsLow_S=1" comment="Соответствеие низкому уровню"/>
      <check test="Tank1_LevelIsHigh_S=0" comment="Соответствеие высокому уровню"/>
 </test>
 
-<test name="LowHist" comment="Проверка выставления НИЗКОГО уровня">
+<test name="LowHyst" comment="Проверка выставления НИЗКОГО уровня">
      <action set="Tank1_WaterLevel_AS=10" comment="Установка уровня воды"/>
      <check test="Tank1_LevelIsLow_S=1" comment="Соответствеие низкому уровню"/>
      <check test="Tank1_LevelIsHigh_S=0" comment="Соответствеие высокому уровню"/>
 </test>
 
-<test name="BetweenLowAndHightHist" comment="Проверка выставления НИЗКОГО уровня">
+<test name="BetweenLowAndHightHyst" comment="Проверка выставления НИЗКОГО уровня">
      <action set="Tank1_WaterLevel_AS=15" comment="Установка уровня воды"/>
      <check test="Tank1_LevelIsLow_S=1" comment="Соответствеие низкому уровню"/>
      <check test="Tank1_LevelIsHigh_S=0" comment="Соответствеие высокому уровню"/>
 </test>
 
-<test name="HightHist" comment="Проверка выставления НИЗКОГО уровня">
+<test name="HightHyst" comment="Проверка выставления НИЗКОГО уровня">
      <action set="Tank1_WaterLevel_AS=20" comment="Установка уровня воды"/>
      <check test="Tank1_LevelIsLow_S=0" comment="Соответствеие низкому уровню"/>
      <check test="Tank1_LevelIsHigh_S=0" comment="Соответствеие высокому уровню"/>
 </test>
 
-<test name="BetweenHightHistAndMaxLevel" comment="Проверка выставления НИЗКОГО уровня">
+<test name="BetweenHightHystAndMaxLevel" comment="Проверка выставления НИЗКОГО уровня">
      <action set="Tank1_WaterLevel_AS=100" comment="Установка уровня воды"/>
      <check test="Tank1_LevelIsLow_S=0" comment="Соответствеие низкому уровню"/>
      <check test="Tank1_LevelIsHigh_S=0" comment="Соответствеие высокому уровню"/>
 </test>
 
-<test name="HightHist" comment="Проверка выставления НИЗКОГО уровня">
+<test name="HightHyst" comment="Проверка выставления НИЗКОГО уровня">
      <action set="Tank1_WaterLevel_AS=20" comment="Установка уровня воды"/>
      <check test="Tank1_LevelIsLow_S=0" comment="Соответствеие низкому уровню"/>
      <check test="Tank1_LevelIsHigh_S=0" comment="Соответствеие высокому уровню"/>

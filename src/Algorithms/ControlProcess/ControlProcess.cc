@@ -1,5 +1,6 @@
 #include "ControlProcess.h"
 #include "settings.h"
+#include "State.h"
 // ------------------------------------------------------------------------------------------
 using namespace std;
 using namespace uniset;
@@ -8,7 +9,7 @@ using namespace uniset;
 ControlProcess::ControlProcess(uniset::ObjectId id, xmlNode *cnode) : ControlProcess_SK(id, cnode),
 																	  StartTimerDelay(uniset_conf()->getIntProp(cnode, "overrun_delay_msec"))
 {
-	
+
 	IncrementWaterLevel = 2;
 
 	if (cnode == NULL)
@@ -46,12 +47,18 @@ ControlProcess::ControlProcess(uniset::ObjectId id, xmlNode *cnode) : ControlPro
 ControlProcess::~ControlProcess()
 {
 }
+
 // ------------------------------------------------------------------------------------------
 ControlProcess::ControlProcess()
 {
 	mycrit  << myname << ": ControlProcess init failed!!!!!!!!!!!!!!!" << endl;
 	throw Exception();
 }
+// ------------------------------------------------------------------------------------------
+
+
+
+
 // ------------------------------------------------------------------------------------------
 void ControlProcess::sensorInfo(const SensorMessage *sm)
 {

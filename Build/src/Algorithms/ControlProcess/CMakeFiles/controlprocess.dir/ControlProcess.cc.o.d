@@ -452,4 +452,5 @@ src/Algorithms/ControlProcess/CMakeFiles/controlprocess.dir/ControlProcess.cc.o:
  /usr/include/c++/10/bits/regex_executor.h \
  /usr/include/c++/10/bits/regex_executor.tcc \
  /usr/include/uniset2/VMonitor.h \
- /home/ivan/projects/test_projects/sensor_test_project/src/Algorithms/ControlProcess/settings.h
+ /home/ivan/projects/test_projects/sensor_test_project/src/Algorithms/ControlProcess/settings.h \
+ /home/ivan/projects/test_projects/sensor_test_project/src/Algorithms/ControlProcess/State.h
