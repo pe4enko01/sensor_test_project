@@ -47,7 +47,7 @@ ControlProcess::ControlProcess(uniset::ObjectId id, xmlNode *cnode) : ControlPro
 ControlProcess::~ControlProcess()
 {
 }
-
+//dsfsdfssdf
 // ------------------------------------------------------------------------------------------
 ControlProcess::ControlProcess()
 {
